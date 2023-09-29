@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 330585546}
-  speed: 6
+  speed: 2.54
   rb: {fileID: 0}
   turnSmoothTime: 0.1
 --- !u!54 &11706336
@@ -298,10 +298,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2754809
-  m_Height: 2.5509617
+  m_Radius: 1.1998589
+  m_Height: 3.1738691
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.07562184, y: -0.31072688, z: 0}
 --- !u!114 &11706338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 400836887}
   - component: {fileID: 400836886}
   - component: {fileID: 400836885}
+  - component: {fileID: 400836889}
   - component: {fileID: 400836884}
   m_Layer: 0
   m_Name: Cube
@@ -845,6 +846,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400836889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400836883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61ceec1d88c7c047aeb39eca8ef6446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  itemName: Paint
+  description: A paint bucket.
+  door: {fileID: 0}
+  itemImage: {fileID: 0}
+  PaintColor: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772224494}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.018894764, y: 0.0000000010752067, z: -2.0319404e-11, w: 0.9998215}
+  m_LocalRotation: {x: 0.018894764, y: -0.0000000010752071, z: 2.0319413e-11, w: 0.9998215}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1846,7 +1865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001074730}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.05520076, y: -0.0000000021475188, z: 1.187257e-10, w: 0.9984753}
+  m_LocalRotation: {x: 0.05520076, y: 0.0000000021475175, z: -1.1872563e-10, w: 0.9984753}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
