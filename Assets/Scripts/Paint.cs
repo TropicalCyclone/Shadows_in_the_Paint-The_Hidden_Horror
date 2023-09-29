@@ -6,6 +6,18 @@ using UnityEngine;
 public class Paint : Item
 {
     [SerializeField]
-    private Material PaintColor;
+    public Material PaintColor;
+    [SerializeField]
+    private MeshRenderer paintLiquid;
 
+    private void OnEnable()
+    {
+        if(paintLiquid != null)
+        PaintBucket(PaintColor);
+    }
+
+    void PaintBucket(Material material)
+    {
+        paintLiquid.material = material;
+    }
 }
