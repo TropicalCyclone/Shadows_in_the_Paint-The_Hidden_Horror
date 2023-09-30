@@ -7,71 +7,48 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField]
     private Transform hand;
     [SerializeField]
-    private bool Grabbed = false;
     private bool keyDown;
     [SerializeField]
     Rigidbody handObject;
+    Rigidbody itemDetect;
     // Start is called before the first frame update
     void Start()
     {
        
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-     
-        if (!Grabbed && !handObject)
+        if (other.tag == "Item")
         {
-            if (other.tag == "Item")
+           itemDetect = other.attachedRigidbody;
+
+        }
+         
+    }
+
+        // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!handObject)
             {
-                //Debug.Log("detected" + other);
-                if (keyDown)
-                {
-                    //Debug.Log("grabbed" + other);
-                    handObject = other.attachedRigidbody;
+                    handObject = itemDetect;
                     handObject.isKinematic = true;
                     handObject.transform.parent = hand;
                     handObject.transform.localPosition = Vector3.zero;
                     handObject.transform.localRotation = Quaternion.identity;
                     handObject.GetComponent<Collider>().enabled = false;
-                    return;
-                }
             }
-        }
-
-       
-        /*else
-        {
-            if (Input.GetKeyDown(KeyCode.E))
+            else
             {
-               
+                handObject.GetComponent<Collider>().enabled = true;
+                handObject.isKinematic = false;
+                handObject.transform.parent = null;
+                handObject = null;
             }
-        }*/
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        keyDown = Input.GetKeyDown(KeyCode.E);
-
-
-        if (handObject)
-        {
-            if (handObject.tag == "Item")
-            {
-                Grabbed = true;
-                //Debug.Log("grabbed");
-            }
-        }
-
-        if (Grabbed && keyDown)
-        {
-            handObject.GetComponent<Collider>().enabled = true;
-            handObject.isKinematic = false;
-            handObject.transform.parent = null;
-            Grabbed = false;
-            handObject = null;
-            return;
-        }
+        }   
     }
 }
