@@ -11,20 +11,13 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField]
     Rigidbody handObject;
     Rigidbody itemDetect;
+    GameObject[] paintBuckets;
+    float pickupDistance;
+    float distance;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-       
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Item")
-        {
-           itemDetect = other.attachedRigidbody;
-
-        }
-         
+        paintBuckets = GameObject.FindGameObjectsWithTag("Item");
     }
 
         // Update is called once per frame
@@ -32,23 +25,43 @@ public class PlayerGrab : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!handObject)
-            {
-                    handObject = itemDetect;
-                    handObject.isKinematic = true;
-                    handObject.transform.parent = hand;
-                    handObject.transform.localPosition = Vector3.zero;
-                    handObject.transform.localRotation = Quaternion.identity;
-                    handObject.GetComponent<Collider>().enabled = false;
-            }
-            else
-            {
-                handObject.GetComponent<Collider>().enabled = true;
-                handObject.isKinematic = false;
-                handObject.transform.parent = null;
-                handObject = null;
-            }
-
+            pickupDistance = 2f;
+            
+                    if (!handObject)
+                    {
+                        handObject = PickCliosestObject();
+                        handObject.isKinematic = true;
+                        handObject.transform.parent = hand;
+                        handObject.transform.localPosition = Vector3.zero;
+                        handObject.transform.localRotation = Quaternion.identity;
+                        handObject.GetComponent<Collider>().enabled = false;
+                    }
+                    else
+                    {
+                        handObject.GetComponent<Collider>().enabled = true;
+                        handObject.isKinematic = false;
+                        handObject.transform.parent = null;
+                        handObject = null;
+                    }
+                    pickupDistance = distance;
+                
+            
         }   
     }
+    Rigidbody PickCliosestObject()
+    {
+    pickupDistance = float.MaxValue;
+    foreach (GameObject paintBucket in paintBuckets)
+    {
+        distance = Vector3.Distance(transform.position, paintBucket.transform.position);
+        if (distance < pickupDistance)
+        {
+                pickupDistance = distance;
+                itemDetect = paintBucket.GetComponent<Rigidbody>();
+        }
+    }
+        return itemDetect;
+    }
 }
+
+
