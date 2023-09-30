@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - SaveZone
+  - PaintWall
   layers:
   - Default
   - TransparentFX
