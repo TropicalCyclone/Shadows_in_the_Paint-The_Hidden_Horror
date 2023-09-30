@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Camo : MonoBehaviour
 {
+    Paint LastPaint;
     Paint paint;
     [SerializeField]
     Transform hand;
@@ -12,6 +13,7 @@ public class Camo : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+
         playerMat = GetComponent<MeshRenderer>().material;
         playerRenderer = GetComponent<MeshRenderer>();  
     }
@@ -19,15 +21,21 @@ public class Camo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         paint = hand.GetComponentInChildren<Paint>();
-        if (paint)
-        { 
-            SetPaint(paint.PaintColor);
-        }
-        else
+        if (LastPaint != paint)
         {
-            SetPaint(playerMat);
-        }       
+            if (paint)
+            {
+                SetPaint(paint.PaintColor);
+            }
+            else
+            {
+                SetPaint(playerMat);
+            }
+            LastPaint = paint;
+        }
+        
     }
 
     void SetPaint(Material material)
