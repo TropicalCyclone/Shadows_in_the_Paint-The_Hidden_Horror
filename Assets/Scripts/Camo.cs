@@ -13,7 +13,6 @@ public class Camo : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-
         playerMat = GetComponent<MeshRenderer>().material;
         playerRenderer = GetComponent<MeshRenderer>();  
     }

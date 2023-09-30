@@ -5,8 +5,10 @@ using UnityEngine;
 public class Hide : MonoBehaviour
 {
     private MeshRenderer m_Renderer;
+
     Material OriginalColor;
     Color m_Color;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,7 +19,6 @@ public class Hide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         
     }
 
     private void OnTriggerEnter(Collider other)
