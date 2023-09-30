@@ -13,6 +13,7 @@ public class PlayerGrab : MonoBehaviour
     Rigidbody itemDetect;
     GameObject[] paintBuckets;
     float pickupDistance;
+    float pickupMaximum = 2f;
     float distance;
     // Start is called before the first frame update
     void Awake()
@@ -50,7 +51,7 @@ public class PlayerGrab : MonoBehaviour
     }
     Rigidbody PickCliosestObject()
     {
-    pickupDistance = float.MaxValue;
+    pickupDistance =  pickupMaximum;
     foreach (GameObject paintBucket in paintBuckets)
     {
         distance = Vector3.Distance(transform.position, paintBucket.transform.position);

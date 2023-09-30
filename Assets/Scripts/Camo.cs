@@ -35,6 +35,10 @@ public class Camo : MonoBehaviour
             }
             LastPaint = paint;
         }
+        if (!paint)
+        {
+            SetPaint(playerMat);
+        }
         
     }
 
