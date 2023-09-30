@@ -20,24 +20,22 @@ public class Hide : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        MeshRenderer mat = other.GetComponent<MeshRenderer>();
-
-        if (mat.material == m_Renderer.material && other.CompareTag("PaintWall") || other.CompareTag("SafeZone"))
+        //Debug.Log("found "+other.gameObject.tag);
+        if (m_Renderer.sharedMaterial == other.GetComponent<MeshRenderer>().sharedMaterial && other.tag == "PaintWall"|| other.tag == "SafeZone")
         {
-            PlayerPrefs.SetInt("hiding", 1);
+            Debug.Log("Player is Hiding");
+            PlayerPrefs.SetInt("isHiding", 1);
         }
-        else
-        {
-            PlayerPrefs.SetInt("hiding", 0);
-        }
+       
     }
 
     private void OnTriggerExit(Collider other)
     {
         MeshRenderer mat = other.GetComponent<MeshRenderer>();
-        if (mat.material == m_Renderer.material)
+        if ((m_Renderer.sharedMaterial == other.GetComponent<MeshRenderer>().sharedMaterial && other.tag == "PaintWall") || other.tag == "SafeZone")
         {
-            PlayerPrefs.SetInt("hiding", 0);
+            Debug.Log("Player is Visble");
+            PlayerPrefs.SetInt("isHiding", 0);
         }
     }
 }
