@@ -15,4 +15,10 @@ public class BaseItem : MonoBehaviour
     private Transform door;
     [SerializeField]
     private Sprite itemImage;
+    GameObject itemGameObject;
+
+    private void OnEnable()
+    {
+        itemGameObject = gameObject;
+    }
 }
