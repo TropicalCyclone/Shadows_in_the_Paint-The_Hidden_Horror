@@ -4,41 +4,48 @@ using UnityEngine;
 
 public class Camo : MonoBehaviour
 {
-    Paint LastPaint;
-    Paint paint;
+    Material LastPaint;
+    Material paint;
     [SerializeField]
     Transform hand;
+    [SerializeField]
     Material playerMat;
+    [SerializeField]
+    PlayerGrab playerGrab;
     MeshRenderer playerRenderer;
     // Start is called before the first frame update
     void OnEnable()
     {
-
-        playerMat = GetComponent<MeshRenderer>().material;
         playerRenderer = GetComponent<MeshRenderer>();  
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
-        
-        paint = hand.GetComponentInChildren<Paint>();
+        BaseItem baseItem = playerGrab.GetHandBaseItem();
+        if (baseItem && baseItem.isPaint())
+        {
+            Paint paintContainer = playerGrab.GetHandBaseItem().GetPaint();
+            paint = paintContainer.GetPaintColor();
+            SetPaint(paint);
+        }
+        else if(!baseItem)
+        {
+            SetPaint(playerMat);
+        }
+        /*
         if (LastPaint != paint)
         {
             if (paint)
             {
-                SetPaint(paint.PaintColor);
+               
             }
             else
             {
                 SetPaint(playerMat);
             }
             LastPaint = paint;
-        }
-        if (!paint)
-        {
-            SetPaint(playerMat);
-        }
+        }*/
         
     }
 
