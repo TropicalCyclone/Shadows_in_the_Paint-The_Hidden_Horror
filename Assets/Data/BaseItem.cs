@@ -16,9 +16,57 @@ public class BaseItem : MonoBehaviour
     [SerializeField]
     private Sprite itemImage;
     GameObject itemGameObject;
+    [SerializeField]
+    private Rigidbody itemRigidbody;
+    [SerializeField]
+    private Collider itemCollider;
+    public bool _isPaint;
+    [SerializeField]
+    private Paint _paint;
+    public bool IsPaint { get { return _isPaint; } set { _isPaint = value; } }
 
     private void OnEnable()
     {
         itemGameObject = gameObject;
     }
+
+  public Rigidbody GetItemRigidbody()
+    {
+        return itemRigidbody;
+    }
+
+    public void ToggleRigidBody(bool value)
+    {
+        if(itemRigidbody != null)
+            itemRigidbody.isKinematic = value;
+    }
+  public Collider GetItemCollider()
+    {
+        return itemCollider;
+    }
+
+    public void SetBool(bool value)
+    {
+        _isPaint = value;
+    }
+
+    public bool isPaint()
+    {
+        return _isPaint;
+    }
+
+    public Paint GetPaint()
+    {
+        return _paint;
+    }
+
+    public void SetPaint(Paint paint)
+    {
+        _paint = paint;
+    }
+}
+
+public interface IPaintMaterial
+{
+    void SetMaterial(Material material);
 }

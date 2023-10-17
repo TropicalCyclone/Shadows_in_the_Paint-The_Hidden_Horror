@@ -9,18 +9,22 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField]
     private bool keyDown;
     [SerializeField]
-    Rigidbody handObject;
-    Rigidbody itemDetect;
-    GameObject[] paintBuckets;
+    BaseItem handObject;
+    [SerializeField]
+    ItemManager itemManager;
     float pickupDistance;
     float pickupMaximum = 2f;
     float distance;
     // Start is called before the first frame update
     void Awake()
     {
-        paintBuckets = GameObject.FindGameObjectsWithTag("Item");
+
     }
 
+    public BaseItem GetHandBaseItem()
+    {
+        return handObject;
+    }
         // Update is called once per frame
     void Update()
     {
@@ -30,17 +34,21 @@ public class PlayerGrab : MonoBehaviour
             
                     if (!handObject)
                     {
+                
                         handObject = PickCliosestObject();
-                        handObject.isKinematic = true;
+                    if (handObject)
+                    {
+                        handObject.ToggleRigidBody(true);
                         handObject.transform.parent = hand;
                         handObject.transform.localPosition = Vector3.zero;
                         handObject.transform.localRotation = Quaternion.identity;
-                        handObject.GetComponent<Collider>().enabled = false;
+                        handObject.GetItemCollider().enabled = false;
+                    }
                     }
                     else
                     {
-                        handObject.GetComponent<Collider>().enabled = true;
-                        handObject.isKinematic = false;
+                        handObject.GetItemCollider().enabled = true;
+                        handObject.ToggleRigidBody(false);
                         handObject.transform.parent = null;
                         handObject = null;
                     }
@@ -49,20 +57,25 @@ public class PlayerGrab : MonoBehaviour
             
         }   
     }
-    Rigidbody PickCliosestObject()
+
+    BaseItem PickCliosestObject()
     {
-    pickupDistance =  pickupMaximum;
-    foreach (GameObject paintBucket in paintBuckets)
+        BaseItem itemDetect = null;
+        pickupDistance =  pickupMaximum;
+        HashSet<BaseItem> Items = itemManager.GetItems();
+
+    foreach (BaseItem item in Items)
     {
-        distance = Vector3.Distance(transform.position, paintBucket.transform.position);
+        distance = Vector3.Distance(transform.position, item.transform.position);
         if (distance < pickupDistance)
         {
                 pickupDistance = distance;
-                itemDetect = paintBucket.GetComponent<Rigidbody>();
+                itemDetect = item;
         }
     }
         return itemDetect;
     }
+
 }
 
 

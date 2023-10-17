@@ -4,50 +4,67 @@ using UnityEngine;
 
 public class Hide : MonoBehaviour
 {
-    private MeshRenderer m_Renderer;
-    Material OriginalColor;
-    Color m_Color;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        m_Renderer = GetComponent<MeshRenderer>();
-        PlayerPrefs.SetInt("hiding", 0);
-    }
+    [SerializeField] private MeshRenderer meshRenderer;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private Material originalColor;
+    [SerializeField] private PlayerGrab playerGrab;
+    private Paint paintColor;
+    private string[] tags = new string[2] { "SafeZone", "PaintWall" };
+
+
+    private void Awake()
     {
-         
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("found "+other.gameObject.tag);
-        if (m_Renderer.sharedMaterial == other.GetComponent<MeshRenderer>().sharedMaterial && other.tag == "PaintWall"|| other.tag == "SafeZone")
+        if (playerGrab && playerGrab.GetHandBaseItem())
         {
-            OriginalColor = m_Renderer.sharedMaterial;
-            m_Color = m_Renderer.material.color;
-            Debug.Log("Player is Hiding");
-            PlayerPrefs.SetInt("isHiding", 1);
-            m_Color.a = 0.5f;
-            m_Renderer.material.SetColor("_BaseColor", m_Color);
+            paintColor = playerGrab.GetHandBaseItem().GetPaint();
         }
-       
-    }
+        else
+        {
+            paintColor = null;
+        }
 
-    void setColor(Color inputColor)
-    {
-        m_Renderer.material.color = inputColor;
+            if (paintColor && (other.tag == tags[1] && paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == tags[0]) 
+        {
+            HidePlayer();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if ((OriginalColor == other.GetComponent<MeshRenderer>().sharedMaterial && other.tag == "PaintWall") || other.tag == "SafeZone")
+        if (paintColor && other.tag == tags[1] || other.tag == tags[0])
         {
-            m_Color = m_Renderer.material.color;
-            Debug.Log("Player is Visble");
-            PlayerPrefs.SetInt("isHiding", 0);
-            m_Renderer.material = OriginalColor;
+            ShowPlayer();
         }
     }
+
+    private void setColor(Color inputColor)
+    {
+        meshRenderer.material.color = inputColor;
+    }
+
+    public void HidePlayer()
+    {
+        if (paintColor)
+        {
+            originalColor = paintColor.GetPaintColor();
+            Color color = originalColor.color;
+            Debug.Log("Player is Hiding");
+            PlayerPrefs.SetInt("isHiding", 1);
+            color.a = 0.5f;
+            meshRenderer.material.SetColor("_BaseColor", color);
+        }
+    }
+
+    public void ShowPlayer()
+    {
+        Debug.Log("Player is Visible");
+        PlayerPrefs.SetInt("isHiding", 0);
+        meshRenderer.material = originalColor;
+    }
 }
+
