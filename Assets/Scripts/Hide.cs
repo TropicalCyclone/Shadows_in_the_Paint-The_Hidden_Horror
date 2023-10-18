@@ -11,6 +11,8 @@ public class Hide : MonoBehaviour
     private Paint paintColor;
     private string[] tags = new string[2] { "SafeZone", "PaintWall" };
 
+    private bool isHiding;
+    public bool GetStatus { get { return isHiding; } }
 
     private void Awake()
     {
@@ -54,7 +56,7 @@ public class Hide : MonoBehaviour
             originalColor = paintColor.GetPaintColor();
             Color color = originalColor.color;
             Debug.Log("Player is Hiding");
-            PlayerPrefs.SetInt("isHiding", 1);
+            isHiding = true;
             color.a = 0.5f;
             meshRenderer.material.SetColor("_BaseColor", color);
         }
@@ -63,8 +65,9 @@ public class Hide : MonoBehaviour
     public void ShowPlayer()
     {
         Debug.Log("Player is Visible");
-        PlayerPrefs.SetInt("isHiding", 0);
+        isHiding = false;
         meshRenderer.material = originalColor;
     }
+
 }
 
