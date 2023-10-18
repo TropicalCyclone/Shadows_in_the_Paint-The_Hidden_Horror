@@ -13,6 +13,8 @@ public class Camo : MonoBehaviour
     [SerializeField]
     PlayerGrab playerGrab;
     MeshRenderer playerRenderer;
+    private Paint paintContainer;
+    BaseItem lastBaseItem;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -25,31 +27,29 @@ public class Camo : MonoBehaviour
         BaseItem baseItem = playerGrab.GetHandBaseItem();
         if (baseItem && baseItem.isPaint())
         {
-            Paint paintContainer = playerGrab.GetHandBaseItem().GetPaint();
+            paintContainer = playerGrab.GetHandBaseItem().GetPaint();
             paint = paintContainer.GetPaintColor();
-            SetPaint(paint);
+            
         }
-        else if(!baseItem)
+
+        if (baseItem != lastBaseItem)
         {
-            SetPaint(playerMat);
-        }
-        /*
-        if (LastPaint != paint)
-        {
-            if (paint)
-            {
-               
-            }
-            else
+            Debug.Log("Paint!");
+            lastBaseItem = baseItem;
+            if (!baseItem)
             {
                 SetPaint(playerMat);
+                Debug.Log("Return Material");
+                return;
             }
-            LastPaint = paint;
-        }*/
-        
+            SetPaint(paint);
+            Debug.Log("Set Material");
+        }
+
+
     }
 
-    void SetPaint(Material material)
+        void SetPaint(Material material)
     {
         playerRenderer.material = material;
     }
