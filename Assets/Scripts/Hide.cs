@@ -28,7 +28,7 @@ public class Hide : MonoBehaviour
             paintColor = null;
         }
 
-            if (paintColor && (other.tag == tags[1] && paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == tags[0]) 
+         if (paintColor && (other.tag == tags[1] && paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == tags[0]) 
         {
             HidePlayer();
         }
