@@ -5,45 +5,93 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public enum e_AI_State
+    {
+        FollowPlayer,
+        Patrol
 
+    }
+
+    [Header("References")]
     [SerializeField] private Transform _Player;
     [SerializeField] private NavMeshAgent _Agent;
+
+    [Header("Waypoints")]
+    [SerializeField] private Waypoints waypointManager;
     [SerializeField] private Transform Waypoints;
     [SerializeField] private List<Transform> targetPos;
     [SerializeField] private int wayPointNumber;
-    [SerializeField] private bool isMoving;
+
+    [SerializeField] private e_AI_State aiState;
+
+    [Header("Player")]
+    [SerializeField] private float playerFollowRange;
+    [SerializeField] private float followDuration;
+    [SerializeField] private float durationLeft;
+
+    private bool _playerIsHiding;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        HashSet<Transform> targets = waypointManager.GetWayPoints();
         if (!_Agent)
         {
             _Agent = GetComponent<NavMeshAgent>();
         }
+        targetPos = new List<Transform>(targets);
+        /*
         foreach (Transform tr in Waypoints.GetComponentInChildren<Transform>())
         {
             targetPos.Add(tr.gameObject.transform);
         }
+        */
+        durationLeft = followDuration;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_Agent.pathPending)
+
+        float distanceToPlayer = Vector3.Distance(transform.position, _Player.position);
+
+        if (distanceToPlayer <= playerFollowRange)
         {
-            //returns the distance of _Agent, if it is the same of stoping distance
-            if (_Agent.remainingDistance <= _Agent.stoppingDistance)
-            {
-                //if _Agent has no path or _Agent is standing still
-                if (!_Agent.hasPath || _Agent.velocity.sqrMagnitude == 0f)
-                {
-                    // Done
-                    Debug.Log("DestinationReached");
-                    MoveToRandomWaypoint();
-                }
-
-
-            }
+            aiState = e_AI_State.FollowPlayer;
         }
+        if (durationLeft <= 0f)
+        {
+            aiState = e_AI_State.Patrol;
+        }
+       
+
+        switch (aiState)
+        {
+            case e_AI_State.FollowPlayer:
+                _Agent.SetDestination(_Player.position);
+                if(distanceToPlayer > playerFollowRange)
+                durationLeft -= Time.deltaTime;
+                break;
+            case e_AI_State.Patrol:
+                if (durationLeft < followDuration)
+                {
+                    durationLeft += Time.deltaTime;
+                }
+                //returns the distance of agent, if it is the same of stoping distance
+                if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
+                {
+                    if (!_Agent.hasPath || _Agent.velocity.sqrMagnitude == 0f)
+                    {
+                        MoveToRandomWaypoint();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+
+       
 
 
     }
@@ -58,7 +106,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         //Make the bool moving true, get a random waypoint number
-        isMoving = true;
         int newWaypointIndex = GetRandomWaypointIndex();
         //if waypoint number is not the same as waypoint index, then proceed to destination
         if (newWaypointIndex != wayPointNumber)
@@ -78,6 +125,12 @@ public class EnemyBehaviour : MonoBehaviour
     public int GetRandomWaypointIndex()
     {
         return Random.Range(0, targetPos.Count);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, playerFollowRange);
     }
 }
 
