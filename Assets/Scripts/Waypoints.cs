@@ -15,7 +15,7 @@ public class Waypoints : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            wayPoints.Add(child);
+            wayPoints.Add(child.transform);
         }
     }
 

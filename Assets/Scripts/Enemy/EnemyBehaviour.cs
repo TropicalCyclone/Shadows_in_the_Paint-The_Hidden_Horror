@@ -15,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _Player;
     [SerializeField] private NavMeshAgent _Agent;
+    [SerializeField] private Hide HideScript;
 
     [Header("Waypoints")]
     [SerializeField] private Waypoints waypointManager;
@@ -29,18 +30,22 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float followDuration;
     [SerializeField] private float durationLeft;
 
+    
+    private HashSet<Transform> targets;
     private bool _playerIsHiding;
 
-
+    private Ray sight;
     // Start is called before the first frame update
     void Start()
-    {
-        HashSet<Transform> targets = waypointManager.GetWayPoints();
+    { 
+        targets = waypointManager.GetWayPoints();
+        _playerIsHiding = HideScript.GetStatus;
+   
         if (!_Agent)
         {
             _Agent = GetComponent<NavMeshAgent>();
         }
-        targetPos = new List<Transform>(targets);
+        
         /*
         foreach (Transform tr in Waypoints.GetComponentInChildren<Transform>())
         {
@@ -48,23 +53,39 @@ public class EnemyBehaviour : MonoBehaviour
         }
         */
         durationLeft = followDuration;
+        targetPos = new List<Transform>(targets);
     }
 
+    private void FixedUpdate()
+    {
+        sight.origin = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        sight.direction = _Player.transform.position - transform.position;
+        RaycastHit rayHit;
+
+        if (Physics.Raycast(sight, out rayHit, playerFollowRange))
+        {
+            Debug.DrawLine(sight.origin, rayHit.point, Color.red);
+            if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
+            {
+                aiState = e_AI_State.FollowPlayer;
+            }
+
+            if (durationLeft <= 0f || _playerIsHiding)
+            {
+                
+              aiState = e_AI_State.Patrol;
+                
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-
+        if (HideScript.GetStatus != _playerIsHiding)
+        {
+            _playerIsHiding = HideScript.GetStatus;
+        }
         float distanceToPlayer = Vector3.Distance(transform.position, _Player.position);
-
-        if (distanceToPlayer <= playerFollowRange)
-        {
-            aiState = e_AI_State.FollowPlayer;
-        }
-        if (durationLeft <= 0f)
-        {
-            aiState = e_AI_State.Patrol;
-        }
-       
 
         switch (aiState)
         {
@@ -90,10 +111,6 @@ public class EnemyBehaviour : MonoBehaviour
             default:
                 break;
         }
-
-       
-
-
     }
     public void MoveToRandomWaypoint()
     {

@@ -11,7 +11,7 @@ public class Hide : MonoBehaviour
     private Paint paintColor;
     private string[] tags = new string[2] { "SafeZone", "PaintWall" };
 
-    private bool isHiding;
+    [SerializeField] private bool isHiding;
     public bool GetStatus { get { return isHiding; } }
 
     private void Awake()
