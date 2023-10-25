@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Hide : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private Material _originalColor;
+    [SerializeField] private PlayerGrab _playerGrab;
+    [SerializeField] private bool _isHiding;
 
-    [SerializeField] private Material originalColor;
-    [SerializeField] private PlayerGrab playerGrab;
-    private Paint paintColor;
-    private string[] tags = new string[2] { "SafeZone", "PaintWall" };
+    private Paint _paintColor;
+    private string[] _tags = new string[2] { "SafeZone", "PaintWall" };
 
-    [SerializeField] private bool isHiding;
-    public bool GetStatus { get { return isHiding; } }
+    
+    public bool GetStatus { get { return _isHiding; } }
 
     private void Awake()
     {
@@ -21,16 +22,16 @@ public class Hide : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (playerGrab && playerGrab.GetHandBaseItem())
+        if (_playerGrab && _playerGrab.GetHandBaseItem())
         {
-            paintColor = playerGrab.GetHandBaseItem().GetPaint();
+            _paintColor = _playerGrab.GetHandBaseItem().GetPaint();
         }
         else
         {
-            paintColor = null;
+            _paintColor = null;
         }
 
-         if (paintColor && (other.tag == tags[1] && paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == tags[0]) 
+         if (_paintColor && (other.tag == _tags[1] && _paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == _tags[0]) 
         {
             HidePlayer();
         }
@@ -38,7 +39,7 @@ public class Hide : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (paintColor && other.tag == tags[1] || other.tag == tags[0])
+        if (_paintColor && other.tag == _tags[1] || other.tag == _tags[0])
         {
             ShowPlayer();
         }
@@ -46,27 +47,27 @@ public class Hide : MonoBehaviour
 
     private void setColor(Color inputColor)
     {
-        meshRenderer.material.color = inputColor;
+        _meshRenderer.material.color = inputColor;
     }
 
     public void HidePlayer()
     {
-        if (paintColor)
+        if (_paintColor)
         {
-            originalColor = paintColor.GetPaintColor();
-            Color color = originalColor.color;
+            _originalColor = _paintColor.GetPaintColor();
+            Color color = _originalColor.color;
             Debug.Log("Player is Hiding");
-            isHiding = true;
+            _isHiding = true;
             color.a = 0.5f;
-            meshRenderer.material.SetColor("_BaseColor", color);
+            _meshRenderer.material.SetColor("_BaseColor", color);
         }
     }
 
     public void ShowPlayer()
     {
         Debug.Log("Player is Visible");
-        isHiding = false;
-        meshRenderer.material = originalColor;
+        _isHiding = false;
+        _meshRenderer.material = _originalColor;
     }
 
 }

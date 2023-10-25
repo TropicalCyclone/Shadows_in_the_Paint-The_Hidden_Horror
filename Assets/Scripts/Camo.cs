@@ -4,46 +4,41 @@ using UnityEngine;
 
 public class Camo : MonoBehaviour
 {
-    Material LastPaint;
-    Material paint;
-    [SerializeField]
-    Transform hand;
-    [SerializeField]
-    Material playerMat;
-    [SerializeField]
-    PlayerGrab playerGrab;
-    MeshRenderer playerRenderer;
-    private Paint paintContainer;
-    BaseItem lastBaseItem;
+    [SerializeField] private Material _playerMat;
+    [SerializeField] private PlayerGrab _playerGrab;
+    private MeshRenderer _playerRenderer;
+    private Paint _paintContainer;
+    private BaseItem _lastBaseItem;
+    private Material _paint;
     // Start is called before the first frame update
     void OnEnable()
     {
-        playerRenderer = GetComponent<MeshRenderer>();  
+        _playerRenderer = GetComponent<MeshRenderer>();  
     }
 
     // Update is called once per frame
     void Update() 
     {
-        BaseItem baseItem = playerGrab.GetHandBaseItem();
+        BaseItem baseItem = _playerGrab.GetHandBaseItem();
         if (baseItem && baseItem.isPaint())
         {
-            paintContainer = playerGrab.GetHandBaseItem().GetPaint();
-            paint = paintContainer.GetPaintColor();
+            _paintContainer = _playerGrab.GetHandBaseItem().GetPaint();
+            _paint = _paintContainer.GetPaintColor();
             
         }
 
-        if (baseItem != lastBaseItem)
+        if (baseItem != _lastBaseItem)
         {
-            Debug.Log("Paint!");
-            lastBaseItem = baseItem;
+            //Debug.Log("Paint!");
+            _lastBaseItem = baseItem;
             if (!baseItem)
             {
-                SetPaint(playerMat);
-                Debug.Log("Return Material");
+                SetPaint(_playerMat);
+                //Debug.Log("Return Material");
                 return;
             }
-            SetPaint(paint);
-            Debug.Log("Set Material");
+            SetPaint(_paint);
+            //Debug.Log("Set Material");
         }
 
 
@@ -51,7 +46,7 @@ public class Camo : MonoBehaviour
 
         void SetPaint(Material material)
     {
-        playerRenderer.material = material;
+        _playerRenderer.material = material;
     }
 }
  
