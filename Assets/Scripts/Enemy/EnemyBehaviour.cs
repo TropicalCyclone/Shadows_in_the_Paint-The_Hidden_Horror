@@ -15,20 +15,19 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _Player;
     [SerializeField] private NavMeshAgent _Agent;
-    [SerializeField] private Hide HideScript;
+    [SerializeField] private Hide _hideScript;
 
     [Header("Waypoints")]
-    [SerializeField] private Waypoints waypointManager;
-    [SerializeField] private Transform Waypoints;
-    [SerializeField] private List<Transform> targetPos;
-    [SerializeField] private int wayPointNumber;
+    [SerializeField] private Waypoints _waypointManager;
+    [SerializeField] private List<Transform> _targetPos;
+    [SerializeField] private int _wayPointNumber;
 
-    [SerializeField] private e_AI_State aiState;
+    [SerializeField] private e_AI_State _aiState;
 
     [Header("Player")]
-    [SerializeField] private float playerFollowRange;
-    [SerializeField] private float followDuration;
-    [SerializeField] private float durationLeft;
+    [SerializeField] private float _playerFollowRange;
+    [SerializeField] private float _followDuration;
+    [SerializeField] private float _durationLeft;
 
     
     private HashSet<Transform> targets;
@@ -38,8 +37,8 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        targets = waypointManager.GetWayPoints();
-        _playerIsHiding = HideScript.GetStatus;
+        targets = _waypointManager.GetWayPoints();
+        _playerIsHiding = _hideScript.GetStatus;
    
         if (!_Agent)
         {
@@ -52,8 +51,8 @@ public class EnemyBehaviour : MonoBehaviour
             targetPos.Add(tr.gameObject.transform);
         }
         */
-        durationLeft = followDuration;
-        targetPos = new List<Transform>(targets);
+        _durationLeft = _followDuration;
+        _targetPos = new List<Transform>(targets);
     }
 
     private void FixedUpdate()
@@ -62,18 +61,18 @@ public class EnemyBehaviour : MonoBehaviour
         sight.direction = _Player.transform.position - transform.position;
         RaycastHit rayHit;
 
-        if (Physics.Raycast(sight, out rayHit, playerFollowRange))
+        if (Physics.Raycast(sight, out rayHit, _playerFollowRange))
         {
             Debug.DrawLine(sight.origin, rayHit.point, Color.red);
             if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
             {
-                aiState = e_AI_State.FollowPlayer;
+                _aiState = e_AI_State.FollowPlayer;
             }
 
-            if (durationLeft <= 0f || _playerIsHiding)
+            if (_durationLeft <= 0f || _playerIsHiding)
             {
                 
-              aiState = e_AI_State.Patrol;
+              _aiState = e_AI_State.Patrol;
                 
             }
         }
@@ -81,23 +80,23 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (HideScript.GetStatus != _playerIsHiding)
+        if (_hideScript.GetStatus != _playerIsHiding)
         {
-            _playerIsHiding = HideScript.GetStatus;
+            _playerIsHiding = _hideScript.GetStatus;
         }
         float distanceToPlayer = Vector3.Distance(transform.position, _Player.position);
 
-        switch (aiState)
+        switch (_aiState)
         {
             case e_AI_State.FollowPlayer:
                 _Agent.SetDestination(_Player.position);
-                if(distanceToPlayer > playerFollowRange)
-                durationLeft -= Time.deltaTime;
+                if(distanceToPlayer > _playerFollowRange)
+                _durationLeft -= Time.deltaTime;
                 break;
             case e_AI_State.Patrol:
-                if (durationLeft < followDuration)
+                if (_durationLeft < _followDuration)
                 {
-                    durationLeft += Time.deltaTime;
+                    _durationLeft += Time.deltaTime;
                 }
                 //returns the distance of agent, if it is the same of stoping distance
                 if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
@@ -116,7 +115,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
 
         //code if we forgot to add waypoints into the list
-        if (targetPos.Count == 0)
+        if (_targetPos.Count == 0)
         {
             Debug.LogWarning("No waypoints available.");
             return;
@@ -125,12 +124,13 @@ public class EnemyBehaviour : MonoBehaviour
         //Make the bool moving true, get a random waypoint number
         int newWaypointIndex = GetRandomWaypointIndex();
         //if waypoint number is not the same as waypoint index, then proceed to destination
-        if (newWaypointIndex != wayPointNumber)
+        if (newWaypointIndex != _wayPointNumber)
         {
             //we make this equal to random way point
-            wayPointNumber = newWaypointIndex;
+            
+            _wayPointNumber = newWaypointIndex;
             //Setting the agent new destination
-            _Agent.SetDestination(targetPos[wayPointNumber].position);
+            _Agent.SetDestination(_targetPos[_wayPointNumber].position);
         }
         else
         {
@@ -141,13 +141,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     public int GetRandomWaypointIndex()
     {
-        return Random.Range(0, targetPos.Count);
+        return Random.Range(0, _targetPos.Count);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, playerFollowRange);
+        Gizmos.DrawWireSphere(transform.position, _playerFollowRange);
     }
 }
 

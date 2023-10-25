@@ -5,24 +5,20 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     [SerializeField]
-    private HashSet<BaseItem> items = new(); 
+    private HashSet<BaseItem> _items = new(); 
    
-    Transform[] SpawnPoints;
-    GameObject Go;
     // Start is called before the first frame update
     void Start()
     {
-        Go = gameObject;
-
         foreach(Transform child in transform)
         { 
-            items.Add(child.gameObject.GetComponentInChildren<BaseItem>());
+            _items.Add(child.gameObject.GetComponentInChildren<BaseItem>());
         }
     }
 
     public HashSet<BaseItem> GetItems()
     {
-        return items;
+        return _items;
     }
 
     // Update is called once per frame
