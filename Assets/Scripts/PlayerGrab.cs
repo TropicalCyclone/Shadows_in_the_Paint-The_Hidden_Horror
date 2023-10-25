@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class PlayerGrab : MonoBehaviour
 {
-    [SerializeField]
-    private Transform hand;
-    [SerializeField]
-    private bool keyDown;
-    [SerializeField]
-    BaseItem handObject;
-    [SerializeField]
-    ItemManager itemManager;
-    float pickupDistance;
-    float pickupMaximum = 2f;
-    float distance;
+    [SerializeField,Tooltip("The Place you want to make the player grab the object")] private Transform _hand;
+    [SerializeField] private BaseItem _handObject;
+    [SerializeField] private ItemManager _itemManager;
+    [SerializeField] private float _pickupMaximum = 2f;
+    private float _pickupDistance;
+    private float _distance;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,36 +18,36 @@ public class PlayerGrab : MonoBehaviour
 
     public BaseItem GetHandBaseItem()
     {
-        return handObject;
+        return _handObject;
     }
         // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            pickupDistance = 2f;
+            _pickupDistance = 2f;
             
-                    if (!handObject)
+                    if (!_handObject)
                     {
                 
-                        handObject = PickCliosestObject();
-                    if (handObject)
+                        _handObject = PickCliosestObject();
+                    if (_handObject)
                     {
-                        handObject.ToggleRigidBody(true);
-                        handObject.transform.parent = hand;
-                        handObject.transform.localPosition = Vector3.zero;
-                        handObject.transform.localRotation = Quaternion.identity;
-                        handObject.GetItemCollider().enabled = false;
+                        _handObject.ToggleRigidBody(true);
+                        _handObject.transform.parent = _hand;
+                        _handObject.transform.localPosition = Vector3.zero;
+                        _handObject.transform.localRotation = Quaternion.identity;
+                        _handObject.GetItemCollider().enabled = false;
                     }
                     }
                     else
                     {
-                        handObject.GetItemCollider().enabled = true;
-                        handObject.ToggleRigidBody(false);
-                        handObject.transform.parent = null;
-                        handObject = null;
+                        _handObject.GetItemCollider().enabled = true;
+                        _handObject.ToggleRigidBody(false);
+                        _handObject.transform.parent = null;
+                        _handObject = null;
                     }
-                    pickupDistance = distance;
+                    _pickupDistance = _distance;
                 
             
         }   
@@ -61,15 +56,15 @@ public class PlayerGrab : MonoBehaviour
     BaseItem PickCliosestObject()
     {
         BaseItem itemDetect = null;
-        pickupDistance =  pickupMaximum;
-        HashSet<BaseItem> Items = itemManager.GetItems();
+        _pickupDistance =  _pickupMaximum;
+        HashSet<BaseItem> Items = _itemManager.GetItems();
 
     foreach (BaseItem item in Items)
     {
-        distance = Vector3.Distance(transform.position, item.transform.position);
-        if (distance < pickupDistance)
+        _distance = Vector3.Distance(transform.position, item.transform.position);
+        if (_distance < _pickupDistance)
         {
-                pickupDistance = distance;
+                _pickupDistance = _distance;
                 itemDetect = item;
         }
     }

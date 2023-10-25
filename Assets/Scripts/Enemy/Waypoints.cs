@@ -5,23 +5,21 @@ using UnityEngine;
 public class Waypoints : MonoBehaviour
 {
     [SerializeField]
-    private HashSet<Transform> wayPoints = new();
+    private HashSet<Transform> _wayPoints = new();
 
-    public GameObject Go { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
-        Go = gameObject;
 
         foreach (Transform child in transform)
         {
-            wayPoints.Add(child.transform);
+            _wayPoints.Add(child.transform);
         }
     }
 
     public HashSet<Transform> GetWayPoints()
     {
-        return wayPoints;
+        return _wayPoints;
     }
 
     // Update is called once per frame
