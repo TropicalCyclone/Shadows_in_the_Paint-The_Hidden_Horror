@@ -26,7 +26,10 @@ public class PlayerGrab : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             _pickupDistance = 2f;
-            
+            if(_hand.childCount <= 0)
+            {
+                _handObject = null;
+            }
                     if (!_handObject)
                     {
                 

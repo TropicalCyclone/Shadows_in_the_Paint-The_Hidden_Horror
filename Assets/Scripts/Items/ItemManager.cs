@@ -21,6 +21,14 @@ public class ItemManager : MonoBehaviour
         return _items;
     }
 
+    public void RemoveItem(BaseItem item)
+    {
+        if (_items.Contains(item))
+        {
+            _items.Remove(item);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
