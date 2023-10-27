@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseItem : MonoBehaviour
 {
     [SerializeField]
-    private int id; 
+    private int id;
     [SerializeField]
     private string itemName;
     [SerializeField]
@@ -15,7 +15,7 @@ public class BaseItem : MonoBehaviour
     private GameObject door;
     [SerializeField]
     private Sprite itemImage;
-    GameObject itemGameObject;
+    private GameObject itemGameObject;
     [SerializeField]
     private Rigidbody itemRigidbody;
     [SerializeField]
@@ -24,6 +24,8 @@ public class BaseItem : MonoBehaviour
     [SerializeField]
     private Paint _paint;
     public bool IsPaint { get { return _isPaint; } set { _isPaint = value; } }
+
+    public GameObject GetDoor{get{return door;}}
 
     private void OnEnable()
     {
