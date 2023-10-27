@@ -6,7 +6,6 @@ public class DoorOpen : MonoBehaviour
 {
     [SerializeField] private ItemManager _itemManager;
     [SerializeField] private PlayerGrab _playerGrab;
-    [SerializeField, Tooltip("Place where you want to throw away an item")] private Transform _trashCan;
     private BaseItem _item;
     private GameObject door;
     private bool _unlockable;
@@ -30,7 +29,6 @@ public class DoorOpen : MonoBehaviour
                 }
                 if (_item)
                 {
-                    _item.gameObject.transform.position = _trashCan.position;
                     _itemManager.RemoveItem(_item);
                     Destroy(_item.gameObject);
                 }
@@ -56,7 +54,6 @@ public class DoorOpen : MonoBehaviour
         {
             if (other.gameObject == _item.GetDoor)
             {
-                Debug.Log("found Door!");
                 _unlockable = true;
                 
             }
