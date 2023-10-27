@@ -8,8 +8,11 @@ public class PlayerGrab : MonoBehaviour
     [SerializeField] private BaseItem _handObject;
     [SerializeField] private ItemManager _itemManager;
     [SerializeField] private float _pickupMaximum = 2f;
+    [SerializeField] private UIManager _uiManager;
     private float _pickupDistance;
     private float _distance;
+    private BaseItem lastBaseItem;
+    private BaseItem currentBaseItem;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +26,8 @@ public class PlayerGrab : MonoBehaviour
         // Update is called once per frame
     void Update()
     {
+        UIUpdate();
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             _pickupDistance = 2f;
@@ -34,17 +39,19 @@ public class PlayerGrab : MonoBehaviour
                     {
                 
                         _handObject = PickCliosestObject();
-                    if (_handObject)
-                    {
+                        if (_handObject)
+                        {
+                        _itemManager.RemoveItem(_handObject);
                         _handObject.ToggleRigidBody(true);
                         _handObject.transform.parent = _hand;
                         _handObject.transform.localPosition = Vector3.zero;
                         _handObject.transform.localRotation = Quaternion.identity;
                         _handObject.GetItemCollider().enabled = false;
-                    }
+                        }
                     }
                     else
                     {
+                        _itemManager.AddItem(_handObject);
                         _handObject.GetItemCollider().enabled = true;
                         _handObject.ToggleRigidBody(false);
                         _handObject.transform.parent = null;
@@ -56,6 +63,28 @@ public class PlayerGrab : MonoBehaviour
         }   
     }
 
+    public void UIUpdate()
+    {
+        currentBaseItem = PickCliosestObject();
+        if (currentBaseItem != lastBaseItem)
+        {
+            if (currentBaseItem)
+            {
+                if (!_handObject)
+                {
+                    _uiManager.SetUIVisual(true);
+                    _uiManager.SetText("Pick Up");
+                }
+
+            }
+            else
+            {
+                _uiManager.SetUIVisual(false);
+            }
+            lastBaseItem = currentBaseItem;
+        }
+    }
+
     BaseItem PickCliosestObject()
     {
         BaseItem itemDetect = null;
@@ -64,12 +93,15 @@ public class PlayerGrab : MonoBehaviour
 
     foreach (BaseItem item in Items)
     {
-        _distance = Vector3.Distance(transform.position, item.transform.position);
-        if (_distance < _pickupDistance)
-        {
-                _pickupDistance = _distance;
-                itemDetect = item;
-        }
+            if (item)
+            {
+                _distance = Vector3.Distance(transform.position, item.transform.position);
+                if (_distance < _pickupDistance)
+                {
+                    _pickupDistance = _distance;
+                    itemDetect = item;
+                }
+            }
     }
         return itemDetect;
     }

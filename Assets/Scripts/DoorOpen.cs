@@ -6,6 +6,7 @@ public class DoorOpen : MonoBehaviour
 {
     [SerializeField] private ItemManager _itemManager;
     [SerializeField] private PlayerGrab _playerGrab;
+    [SerializeField] private UIManager _uiManager;
     private BaseItem _item;
     private GameObject door;
     private bool _unlockable;
@@ -31,6 +32,7 @@ public class DoorOpen : MonoBehaviour
                 {
                     _itemManager.RemoveItem(_item);
                     Destroy(_item.gameObject);
+                    _uiManager.SetUIVisual(false);
                 }
             }
         }
@@ -50,17 +52,39 @@ public class DoorOpen : MonoBehaviour
         {
             door = null;
         }
-            if (_item)
+        if (_item && door)
         {
-            if (other.gameObject == _item.GetDoor)
+            if (door.gameObject == _item.GetDoor)
             {
+                _uiManager.SetUIVisual(true);
+                _uiManager.SetText("Open Door");
                 _unlockable = true;
-                
             }
             else
             {
                 _unlockable = false;
             }
+        }
+        else
+        {
+            _unlockable = false;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (_item)
+        {
+            if (other.gameObject == _item.GetDoor)
+            {
+          
+                _unlockable = false;
+                _uiManager.SetUIVisual(false);
+            }
+        }
+        else
+        {
+            _unlockable = false;
+            _uiManager.SetUIVisual(false);
         }
     }
 }

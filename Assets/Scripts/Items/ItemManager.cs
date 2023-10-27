@@ -29,6 +29,11 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void AddItem(BaseItem item)
+    {
+        _items.Add(item);
+    }
+
     // Update is called once per frame
     void Update()
     {
