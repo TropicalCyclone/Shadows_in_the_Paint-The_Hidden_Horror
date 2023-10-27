@@ -12,7 +12,7 @@ public class BaseItem : MonoBehaviour
     [TextArea]
     private string description;
     [SerializeField]
-    private Transform door;
+    private GameObject door;
     [SerializeField]
     private Sprite itemImage;
     GameObject itemGameObject;
