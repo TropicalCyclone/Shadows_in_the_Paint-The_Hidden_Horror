@@ -15,12 +15,9 @@ public class EnemyAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            AttackEnemy();
-        }
+
     }
-    private void AttackEnemy()
+    public void AttackEnemy()
     {
         animator.gameObject.SetActive(true);
         animator.SetTrigger("Attack");

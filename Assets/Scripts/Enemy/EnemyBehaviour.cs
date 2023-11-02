@@ -29,10 +29,14 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float _crouchFollowRange;
     [SerializeField] private float _followDuration;
     [SerializeField] private float _durationLeft;
+    [SerializeField] private float _enemyRoamSpeed;
+    [SerializeField] private float _enemyAttackSpeed;
 
-    
     private HashSet<Transform> targets;
     private bool _playerIsHiding;
+    private bool _attack;
+    public bool _isAttacking { get { return _attack; } }
+
 
     private Ray sight;
     // Start is called before the first frame update
@@ -40,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
     { 
         targets = _waypointManager.GetWayPoints();
         _playerIsHiding = _hideScript.GetStatus;
+        
    
         if (!_Agent)
         {
@@ -69,13 +74,15 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 _durationLeft = _followDuration;
                 _aiState = e_AI_State.FollowPlayer;
+                _Agent.speed = _enemyAttackSpeed;
             }
 
             if (_durationLeft <= 0f || _playerIsHiding)
             {
-              _Agent.ResetPath();
-              _aiState = e_AI_State.Patrol;
-              MoveToRandomWaypoint();
+                _Agent.ResetPath();
+                _aiState = e_AI_State.Patrol;
+                _Agent.speed = _enemyRoamSpeed;
+                MoveToRandomWaypoint();
             }
         }
     }
@@ -92,7 +99,20 @@ public class EnemyBehaviour : MonoBehaviour
         {
             case e_AI_State.FollowPlayer:
                 _Agent.SetDestination(_Player.transform.position);
-                if(distanceToPlayer > getFollowDistance())
+
+                if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
+                { 
+                     if (!_playerIsHiding)
+                     {
+                         _attack = true;
+                     }
+                }
+                else
+                {
+                    _attack = false;
+                }
+
+                    if (distanceToPlayer > getFollowDistance())
                 _durationLeft -= Time.deltaTime;
                 break;
             case e_AI_State.Patrol:

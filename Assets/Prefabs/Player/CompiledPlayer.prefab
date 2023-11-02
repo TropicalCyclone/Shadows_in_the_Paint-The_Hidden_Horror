@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 2654566178418911716}
   - component: {fileID: 1023774531021318559}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -840,7 +840,7 @@ PrefabInstance:
     - target: {fileID: 750488473251906896, guid: d1137bc42ebde274380025d75917f15e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.87
+      value: 0.8699999
       objectReference: {fileID: 0}
     - target: {fileID: 750488473251906896, guid: d1137bc42ebde274380025d75917f15e,
         type: 3}
@@ -860,7 +860,7 @@ PrefabInstance:
     - target: {fileID: 750488473251906896, guid: d1137bc42ebde274380025d75917f15e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.06753963
+      value: -0.067539625
       objectReference: {fileID: 0}
     - target: {fileID: 750488473251906896, guid: d1137bc42ebde274380025d75917f15e,
         type: 3}
@@ -1159,12 +1159,12 @@ PrefabInstance:
     - target: {fileID: 6254590157513277179, guid: d339a23da76627e4e991f9fde5f6bb22,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000010752071
+      value: -0.0000000010752067
       objectReference: {fileID: 0}
     - target: {fileID: 6254590157513277179, guid: d339a23da76627e4e991f9fde5f6bb22,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.0319413e-11
+      value: 2.0319404e-11
       objectReference: {fileID: 0}
     - target: {fileID: 6965018843971747997, guid: d339a23da76627e4e991f9fde5f6bb22,
         type: 3}
@@ -1194,7 +1194,7 @@ PrefabInstance:
     - target: {fileID: 7939124555424222148, guid: d339a23da76627e4e991f9fde5f6bb22,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.037029866
+      value: 0.03702987
       objectReference: {fileID: 0}
     - target: {fileID: 8270174506438840867, guid: d339a23da76627e4e991f9fde5f6bb22,
         type: 3}
