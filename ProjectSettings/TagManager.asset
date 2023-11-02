@@ -8,6 +8,7 @@ TagManager:
   - SaveZone
   - PaintWall
   - Door
+  - Enemy
   layers:
   - Default
   - TransparentFX
