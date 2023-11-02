@@ -72,6 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.DrawLine(sight.origin, rayHit.point, Color.red);
             if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
             {
+                Debug.Log("attack");
                 _durationLeft = _followDuration;
                 _aiState = e_AI_State.FollowPlayer;
                 _Agent.speed = _enemyAttackSpeed;
@@ -79,10 +80,9 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (_durationLeft <= 0f || _playerIsHiding)
             {
-                _Agent.ResetPath();
                 _aiState = e_AI_State.Patrol;
                 _Agent.speed = _enemyRoamSpeed;
-                MoveToRandomWaypoint();
+                
             }
         }
     }
@@ -112,10 +112,8 @@ public class EnemyBehaviour : MonoBehaviour
                     _attack = false;
                 }
 
-                    if (distanceToPlayer > getFollowDistance())
-                _durationLeft -= Time.deltaTime;
                 break;
-            case e_AI_State.Patrol:
+                case e_AI_State.Patrol:
                 if (_durationLeft < _followDuration)
                 {
                     _durationLeft += Time.deltaTime;
@@ -157,6 +155,7 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             // If the random waypoint is the same as the current one, find another waypoint
+            Debug.Log("Setting new destination");
             MoveToRandomWaypoint();
         }
     }
