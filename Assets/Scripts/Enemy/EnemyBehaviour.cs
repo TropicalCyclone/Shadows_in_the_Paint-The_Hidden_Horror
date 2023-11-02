@@ -13,7 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     [Header("References")]
-    [SerializeField] private Transform _Player;
+    [SerializeField] private PlayerMovement _Player;
     [SerializeField] private NavMeshAgent _Agent;
     [SerializeField] private Hide _hideScript;
 
@@ -24,8 +24,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private e_AI_State _aiState;
 
-    [Header("Player")]
+    [Header("Player follow settings")]
     [SerializeField] private float _playerFollowRange;
+    [SerializeField] private float _crouchFollowRange;
     [SerializeField] private float _followDuration;
     [SerializeField] private float _durationLeft;
 
@@ -61,19 +62,20 @@ public class EnemyBehaviour : MonoBehaviour
         sight.direction = _Player.transform.position - transform.position;
         RaycastHit rayHit;
 
-        if (Physics.Raycast(sight, out rayHit, _playerFollowRange))
+        if (Physics.Raycast(sight, out rayHit, getFollowDistance()))
         {
             Debug.DrawLine(sight.origin, rayHit.point, Color.red);
             if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
             {
+                _durationLeft = _followDuration;
                 _aiState = e_AI_State.FollowPlayer;
             }
 
             if (_durationLeft <= 0f || _playerIsHiding)
             {
-                
+              _Agent.ResetPath();
               _aiState = e_AI_State.Patrol;
-                
+              MoveToRandomWaypoint();
             }
         }
     }
@@ -84,13 +86,13 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _playerIsHiding = _hideScript.GetStatus;
         }
-        float distanceToPlayer = Vector3.Distance(transform.position, _Player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _Player.transform.position);
 
         switch (_aiState)
         {
             case e_AI_State.FollowPlayer:
-                _Agent.SetDestination(_Player.position);
-                if(distanceToPlayer > _playerFollowRange)
+                _Agent.SetDestination(_Player.transform.position);
+                if(distanceToPlayer > getFollowDistance())
                 _durationLeft -= Time.deltaTime;
                 break;
             case e_AI_State.Patrol:
@@ -147,7 +149,19 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _playerFollowRange);
+        Gizmos.DrawWireSphere(transform.position, getFollowDistance());
+    }
+
+    private float getFollowDistance()
+    {
+        if (_Player.GetCrouchStatus())
+        {
+            return _crouchFollowRange;
+        }
+        else
+        {
+            return _playerFollowRange;
+        }
     }
 }
 
