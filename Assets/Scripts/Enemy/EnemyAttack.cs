@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class EnemyAttack : MonoBehaviour
 {
-    public GameObject objectToPlace; // The GameObject to place in front of the camera.
-    public float distanceFromCamera = 2.0f; // Distance from the camera to place the object.
+    [SerializeField] private FadeScreen fader;
+    [SerializeField] private Animator animator;
     void Start()
     {
-       
+        animator.gameObject.SetActive(false);
+        
     }
 
-    private void EndGame()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            AttackEnemy();
+        }
+    }
+    private void AttackEnemy()
+    {
+        animator.gameObject.SetActive(true);
+        animator.SetTrigger("Attack");
     }
 }
