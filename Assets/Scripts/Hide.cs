@@ -65,9 +65,13 @@ public class Hide : MonoBehaviour
 
     public void ShowPlayer()
     {
-        Debug.Log("Player is Visible");
+        if (_isHiding)
+        {
+            Debug.Log("Player is Visible");
+            _isHiding = false;
+            _meshRenderer.material = _originalColor;
+        }
         _isHiding = false;
-        _meshRenderer.material = _originalColor;
     }
 
 }
