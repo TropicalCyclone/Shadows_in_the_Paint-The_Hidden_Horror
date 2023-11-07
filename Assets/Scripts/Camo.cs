@@ -6,14 +6,20 @@ public class Camo : MonoBehaviour
 {
     [SerializeField] private Material _playerMat;
     [SerializeField] private PlayerGrab _playerGrab;
-    private MeshRenderer _playerRenderer;
+    private SkinnedMeshRenderer _playerRenderer;
     private Paint _paintContainer;
     private BaseItem _lastBaseItem;
     private Material _paint;
     // Start is called before the first frame update
     void OnEnable()
     {
-        _playerRenderer = GetComponent<MeshRenderer>();  
+        if(!_playerRenderer)
+        _playerRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+
+        if (!_playerMat)
+        {
+            _playerMat = _playerRenderer.materials[0];
+        }
     }
 
     // Update is called once per frame
