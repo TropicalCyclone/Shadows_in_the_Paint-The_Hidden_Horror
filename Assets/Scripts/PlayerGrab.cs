@@ -13,6 +13,11 @@ public class PlayerGrab : MonoBehaviour
     private float _distance;
     private BaseItem lastBaseItem;
     private BaseItem currentBaseItem;
+
+    public bool isObjectGrabbed()
+    {
+        return _handObject;
+    }
     // Start is called before the first frame update
     void Awake()
     {

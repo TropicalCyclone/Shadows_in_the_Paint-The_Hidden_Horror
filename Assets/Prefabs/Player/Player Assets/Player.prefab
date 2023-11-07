@@ -2172,6 +2172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8047814650405133969}
+  grab: {fileID: 1877866790263152258}
   player: {fileID: 5700328502720859937}
 --- !u!1 &5917056830181764521
 GameObject:
