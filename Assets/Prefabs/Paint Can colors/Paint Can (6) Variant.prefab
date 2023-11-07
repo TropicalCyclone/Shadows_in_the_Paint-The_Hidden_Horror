@@ -15,9 +15,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
+      propertyPath: _isPaint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
+        type: 3}
       propertyPath: PaintColor
       value: 
       objectReference: {fileID: 2100000, guid: 0bc12f3f956aecc4190609a44165d0a3, type: 2}
+    - target: {fileID: 7521264631458401006, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8721662381668029995, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
       propertyPath: m_LocalPosition.x

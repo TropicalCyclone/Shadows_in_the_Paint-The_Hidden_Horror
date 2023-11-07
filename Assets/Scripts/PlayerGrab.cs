@@ -16,7 +16,10 @@ public class PlayerGrab : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        if (!_itemManager)
+        {
+            _itemManager = FindAnyObjectByType<ItemManager>();
+        }
     }
 
     public BaseItem GetHandBaseItem()
