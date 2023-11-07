@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hide : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     [SerializeField] private Material _originalColor;
     [SerializeField] private PlayerGrab _playerGrab;
     [SerializeField] private bool _isHiding;
@@ -33,6 +33,8 @@ public class Hide : MonoBehaviour
 
          if (_paintColor && (other.tag == _tags[1] && _paintColor.GetPaint().GetPaintColor().color == other.GetComponent<MeshRenderer>().material.color) || other.tag == _tags[0]) 
         {
+            Debug.Log("Player is Hiding");
+            _isHiding = true;
             HidePlayer();
         }
     }
@@ -41,13 +43,15 @@ public class Hide : MonoBehaviour
     {
         if (_paintColor && other.tag == _tags[1] || other.tag == _tags[0])
         {
+            Debug.Log("Player is Visible");
             ShowPlayer();
+            
         }
     }
 
     private void setColor(Color inputColor)
     {
-        _meshRenderer.material.color = inputColor;
+        _meshRenderer.materials[0].SetColor("_BaseColor", inputColor);
     }
 
     public void HidePlayer()
@@ -56,20 +60,16 @@ public class Hide : MonoBehaviour
         {
             _originalColor = _paintColor.GetPaintColor();
             Color color = _originalColor.color;
-            Debug.Log("Player is Hiding");
-            _isHiding = true;
-            color.a = 0.5f;
-            _meshRenderer.material.SetColor("_BaseColor", color);
+            color.a = 0.2f;
+            setColor(color);
         }
     }
 
     public void ShowPlayer()
     {
         if (_isHiding)
-        {
-            Debug.Log("Player is Visible");
-            _isHiding = false;
-            _meshRenderer.material = _originalColor;
+        {  
+            setColor(_originalColor.color);
         }
         _isHiding = false;
     }

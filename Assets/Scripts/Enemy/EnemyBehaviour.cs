@@ -35,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
     private HashSet<Transform> targets;
     private bool _playerIsHiding;
     private bool _attack;
+    private bool _runOnce;
     public bool _isAttacking { get { return _attack; } }
 
 
@@ -72,6 +73,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.DrawLine(sight.origin, rayHit.point, Color.red);
             if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
             {
+                _runOnce = true;
                 Debug.Log("attack");
                 _durationLeft = _followDuration;
                 _aiState = e_AI_State.FollowPlayer;
@@ -80,6 +82,11 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (_durationLeft <= 0f || _playerIsHiding)
             {
+                if (_runOnce)
+                {
+                    _Agent.ResetPath();
+                    _runOnce = false;
+                }
                 _aiState = e_AI_State.Patrol;
                 _Agent.speed = _enemyRoamSpeed;
                 

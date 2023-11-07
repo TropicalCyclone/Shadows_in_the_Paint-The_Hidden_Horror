@@ -83,7 +83,7 @@ MonoBehaviour:
   _followDuration: 5
   _durationLeft: 0
   _enemyRoamSpeed: 2
-  _enemyAttackSpeed: 4
+  _enemyAttackSpeed: 3.5
 --- !u!195 &6496403671340650197
 NavMeshAgent:
   m_ObjectHideFlags: 0

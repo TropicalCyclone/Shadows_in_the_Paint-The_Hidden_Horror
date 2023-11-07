@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         return _isCrouching;
     }
 
-    public bool getWalkingStatus()
+    public bool GetWalkingStatus()
     {
         return _isWalking;
     }

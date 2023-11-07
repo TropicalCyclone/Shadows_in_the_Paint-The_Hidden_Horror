@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
       propertyPath: _isPaint
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
