@@ -106,7 +106,7 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   itemRigidbody: {fileID: 7521264631458401006}
   itemCollider: {fileID: 628219790052131108}
-  _isPaint: 0
+  _isPaint: 1
   _paint: {fileID: 0}
   PaintColor: {fileID: 0}
   paintLiquid: {fileID: 3163122554526795053}

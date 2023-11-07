@@ -10,7 +10,6 @@ public class EnemyAttack : MonoBehaviour
     void Start()
     {
         animator.gameObject.SetActive(false);
-        
     }
 
     private void Update()

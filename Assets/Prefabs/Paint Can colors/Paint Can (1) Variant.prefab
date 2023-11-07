@@ -20,6 +20,11 @@ PrefabInstance:
       objectReference: {fileID: 663572710727628588}
     - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
+      propertyPath: _isPaint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024719159472173698, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
+        type: 3}
       propertyPath: PaintColor
       value: 
       objectReference: {fileID: 2100000, guid: 5620436e10fe0c842a6f87f6fa8a9cfd, type: 2}
@@ -28,6 +33,11 @@ PrefabInstance:
       propertyPath: itemRigidbody
       value: 
       objectReference: {fileID: 3659605361554198336}
+    - target: {fileID: 7521264631458401006, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8721662381668029995, guid: 1b3cee7c99f351a41b2ebc5b65608f7a,
         type: 3}
       propertyPath: m_LocalPosition.x
