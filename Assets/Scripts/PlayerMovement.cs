@@ -10,13 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _turnSmoothTime = 0.1f;
     [SerializeField] private float _turnSmoothVel;
     private bool _isCrouching = false;
+    private bool _isWalking;
+    private float _walkingSpeed;
+    private Rigidbody rb;
 
     public bool GetCrouchStatus()
     {
         return _isCrouching;
     }
-    private float _walkingSpeed;
-    private Rigidbody rb;
+
+    public bool getWalkingStatus()
+    {
+        return _isWalking;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
         bool playerCrouch = Input.GetButtonDown("Fire2");
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        _isWalking = direction.magnitude > 0.01f || direction.magnitude < -0.01f;
 
         if(direction.magnitude >= 0.1f)
         {
