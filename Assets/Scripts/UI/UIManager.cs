@@ -6,6 +6,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _uiGroup;
     [SerializeField] private TMP_Text _text; 
     // Start is called before the first frame update
@@ -17,7 +18,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      if(Input.GetButtonDown("Jump"))
+        {
+            _pauseMenuUI.SetActive(true);
+        }
     }
 
     public void SetText(string input)
@@ -25,15 +29,22 @@ public class UIManager : MonoBehaviour
         _text.text = input;
     }
 
-    public void SetUIVisual(bool value)
+    public void SetGrabVisual(bool value)
+    {    
+         _uiGroup.SetActive(value); 
+    }
+
+    public void SetPauseVisual(bool value)
     {
         if (value)
         {
-            _uiGroup.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
-            _uiGroup.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
+        Cursor.visible = value;
+        _pauseMenuUI.SetActive(value);
     }
 }
