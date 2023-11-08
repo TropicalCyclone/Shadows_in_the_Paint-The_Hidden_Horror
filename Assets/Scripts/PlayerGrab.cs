@@ -80,14 +80,14 @@ public class PlayerGrab : MonoBehaviour
             {
                 if (!_handObject)
                 {
-                    _uiManager.SetUIVisual(true);
+                    _uiManager.SetGrabVisual(true);
                     _uiManager.SetText("Pick Up");
                 }
 
             }
             else
             {
-                _uiManager.SetUIVisual(false);
+                _uiManager.SetGrabVisual(false);
             }
             lastBaseItem = currentBaseItem;
         }

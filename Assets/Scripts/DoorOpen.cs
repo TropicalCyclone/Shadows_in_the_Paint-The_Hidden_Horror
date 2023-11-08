@@ -32,7 +32,7 @@ public class DoorOpen : MonoBehaviour
                 {
                     _itemManager.RemoveItem(_item);
                     Destroy(_item.gameObject);
-                    _uiManager.SetUIVisual(false);
+                    _uiManager.SetGrabVisual(false);
                 }
             }
         }
@@ -56,7 +56,7 @@ public class DoorOpen : MonoBehaviour
         {
             if (door.gameObject == _item.GetDoor)
             {
-                _uiManager.SetUIVisual(true);
+                _uiManager.SetGrabVisual(true);
                 _uiManager.SetText("Open Door");
                 _unlockable = true;
             }
@@ -78,13 +78,13 @@ public class DoorOpen : MonoBehaviour
             {
           
                 _unlockable = false;
-                _uiManager.SetUIVisual(false);
+                _uiManager.SetGrabVisual(false);
             }
         }
         else
         {
             _unlockable = false;
-            _uiManager.SetUIVisual(false);
+            _uiManager.SetGrabVisual(false);
         }
     }
 }
