@@ -13,9 +13,9 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     [Header("References")]
-    [SerializeField] private PlayerMovement _Player;
+    [SerializeField] private PlayerScriptManager _playerScriptManager;
+
     [SerializeField] private NavMeshAgent _Agent;
-    [SerializeField] private Hide _hideScript;
 
     [Header("Waypoints")]
     [SerializeField] private Waypoints _waypointManager;
@@ -38,13 +38,20 @@ public class EnemyBehaviour : MonoBehaviour
     private bool _runOnce;
     public bool _isAttacking { get { return _attack; } }
 
+    private void OnEnable()
+    {
+        if (!_playerScriptManager)
+        {
+            _playerScriptManager = FindAnyObjectByType<PlayerScriptManager>();
+        }
+    }
 
     private Ray sight;
     // Start is called before the first frame update
     void Start()
     { 
         targets = _waypointManager.GetWayPoints();
-        _playerIsHiding = _hideScript.GetStatus;
+        _playerIsHiding = _playerScriptManager.Hide.GetStatus;
         
    
         if (!_Agent)
@@ -65,13 +72,13 @@ public class EnemyBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         sight.origin = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-        sight.direction = _Player.transform.position - transform.position;
+        sight.direction = _playerScriptManager.PlayerMovement.transform.position - transform.position;
         RaycastHit rayHit;
 
         if (Physics.Raycast(sight, out rayHit, getFollowDistance()))
         {
             Debug.DrawLine(sight.origin, rayHit.point, Color.red);
-            if (rayHit.transform.gameObject == _Player.gameObject && !_playerIsHiding)
+            if (rayHit.transform.gameObject == _playerScriptManager.PlayerMovement.gameObject && !_playerIsHiding)
             {
                 _runOnce = true;
                 Debug.Log("attack");
@@ -96,16 +103,16 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_hideScript.GetStatus != _playerIsHiding)
+        if (_playerScriptManager.Hide.GetStatus != _playerIsHiding)
         {
-            _playerIsHiding = _hideScript.GetStatus;
+            _playerIsHiding = _playerScriptManager.Hide.GetStatus;
         }
-        float distanceToPlayer = Vector3.Distance(transform.position, _Player.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerScriptManager.PlayerMovement.transform.position);
 
         switch (_aiState)
         {
             case e_AI_State.FollowPlayer:
-                _Agent.SetDestination(_Player.transform.position);
+                _Agent.SetDestination(_playerScriptManager.PlayerMovement.transform.position);
 
                 if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
                 { 
@@ -180,7 +187,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private float getFollowDistance()
     {
-        if (_Player.GetCrouchStatus())
+        if (_playerScriptManager.PlayerMovement.GetCrouchStatus())
         {
             return _crouchFollowRange;
         }
