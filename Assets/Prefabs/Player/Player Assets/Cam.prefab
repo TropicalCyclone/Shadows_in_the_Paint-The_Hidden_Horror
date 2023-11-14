@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 897219219308826365}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0675427, y: -0, z: -0, w: 0.9977164}
-  m_LocalPosition: {x: -11.070506, y: 0.4008453, z: 5.736707}
+  m_LocalPosition: {x: -10.339149, y: 3.3257923, z: 19.50932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1100,6 +1100,9 @@ MonoBehaviour:
   _pauseMenuUI: {fileID: 2922663212428412836}
   _uiGroup: {fileID: 7140926322075635486}
   _text: {fileID: 369000316621904805}
+  E_Sprite: {fileID: 21300000, guid: 5886c12ac71a1204aa254f9ab2761be1, type: 3}
+  F_Sprite: {fileID: 21300000, guid: 0c5b24a19e1fe424788e09e58cdb6587, type: 3}
+  GrabVisual: {fileID: 7392903993154789409}
 --- !u!1 &6433626273782354974
 GameObject:
   m_ObjectHideFlags: 0

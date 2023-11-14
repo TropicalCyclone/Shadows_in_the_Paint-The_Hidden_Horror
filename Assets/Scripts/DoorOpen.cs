@@ -22,22 +22,19 @@ public class DoorOpen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (_unlockable)
+            if (_unlockable && _item && door)
             {
-                
-                if (_item)
-                {
-                    if (door)
-                    {
+
+              
                         foreach (GameObject doors in _item.GetDoor)
                         {
-                            Destroy(doors.gameObject);
+
+                        Destroy(doors.gameObject);
                         }
-                    }
+                    
                     _itemManager.RemoveItem(_item);
-                    Destroy(_item.gameObject);
                     _uiManager.SetGrabVisual(false);
-                }
+                    Destroy(_item.gameObject);
             }
         }
     }
@@ -46,55 +43,67 @@ public class DoorOpen : MonoBehaviour
         
         if(other.gameObject.tag == "Door")
         {
-            if (_playerGrab.GetHandBaseItem())
-            {
-                _item = _playerGrab.GetHandBaseItem();
-            }
+            _item = _playerGrab.GetHandBaseItem();
             door = other.gameObject;
-        }
-        else
-        {
-            door = null;
-        }
-        if (_item && door)
-        {
-            foreach (GameObject doors in _item.GetDoor)
+            if (_item && door)
             {
-                if (door.gameObject == doors)
+
+                if (CheckDoors(_item))
                 {
                     _uiManager.SetGrabVisual(true);
                     _uiManager.SetText("Open Door");
                     _unlockable = true;
+
                 }
                 else
                 {
                     _unlockable = false;
                 }
+
+            }
+            else
+            {
+                Debug.Log("NO item or door");
+                _unlockable = false;
             }
         }
-        else
-        {
-            _unlockable = false;
-        }
+        
     }
-    private void OnTriggerExit(Collider other)
+
+
+    public bool CheckDoors(BaseItem Input)
     {
         if (_item)
         {
-            foreach (GameObject doors in _item.GetDoor)
+            foreach (GameObject doors in Input.GetDoor)
             {
-                if (other.gameObject == doors)
+                if (door == doors)
                 {
-
-                    _unlockable = false;
-                    _uiManager.SetGrabVisual(false);
+                    return true;
                 }
             }
         }
-        else
+        return false;
+            
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Door")
         {
+            if (door)
+            {
+                if (CheckDoors(_item))
+                {
+                    door = null;
+                    _uiManager.SetGrabVisual(false);
+                }
+            }
+            else
+            {
+                _uiManager.SetGrabVisual(false);
+            }
+
             _unlockable = false;
-            _uiManager.SetGrabVisual(false);
         }
     }
 }

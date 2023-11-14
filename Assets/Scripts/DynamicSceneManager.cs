@@ -13,8 +13,8 @@ public class DynamicSceneManager : MonoBehaviour
         instance = this;
         Load("Tutorial Level");
         Load("Easy Level");
-        Load("Medium Level");
-        Load("Final Level");
+        //Load("Medium Level");
+        //Load("Final Level");
     }
 
     // Update is called once per frame

@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _uiGroup;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private Sprite E_Sprite;
+    [SerializeField] private Sprite F_Sprite;
+    [SerializeField] private Image GrabVisual;
 
     private bool _uiSwitch;
     // Start is called before the first frame update
@@ -40,6 +43,18 @@ public class UIManager : MonoBehaviour
     public void SetText(string input)
     {
         _text.text = input;
+    }
+
+    public void EorF(bool set)
+    {
+        if (set)
+        {
+            GrabVisual.sprite = E_Sprite;
+        }
+        else
+        {
+            GrabVisual.sprite = F_Sprite;
+        }
     }
 
     public void SetGrabVisual(bool value)

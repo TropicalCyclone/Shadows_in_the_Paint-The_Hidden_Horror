@@ -25,6 +25,11 @@ public class MainMenuAnimation : MonoBehaviour
         MainMenuAnimator.SetBool("IsSettings", true);
     }
 
+    public void ResetSaves()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
     public void BackButtton()
     {
         OldManAnimator.SetBool("IsSettings",false);
