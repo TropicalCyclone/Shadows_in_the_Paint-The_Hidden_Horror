@@ -12,7 +12,7 @@ public class BaseItem : MonoBehaviour
     [TextArea]
     private string description;
     [SerializeField]
-    private GameObject door;
+    private List<GameObject> door;
     [SerializeField]
     private Sprite itemImage;
     private GameObject itemGameObject;
@@ -25,7 +25,7 @@ public class BaseItem : MonoBehaviour
     private Paint _paint;
     public bool IsPaint { get { return _isPaint; } set { _isPaint = value; } }
 
-    public GameObject GetDoor{get{return door;}}
+    public List<GameObject> GetDoor{get{return door;}}
 
     private void OnEnable()
     {
