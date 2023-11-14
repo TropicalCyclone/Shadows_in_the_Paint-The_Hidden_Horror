@@ -40,10 +40,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!_playerScriptManager)
-        {
-            _playerScriptManager = FindAnyObjectByType<PlayerScriptManager>();
-        }
+        
     }
 
     private Ray sight;
@@ -51,7 +48,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         targets = _waypointManager.GetWayPoints();
-        _playerIsHiding = _playerScriptManager.Hide.GetStatus;
+        
 
 
         if (!_Agent)
@@ -71,6 +68,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_playerScriptManager)
+        {
+            _playerScriptManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScriptManager>();
+            _playerIsHiding = _playerScriptManager.Hide.GetStatus;
+        }
         sight.origin = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         sight.direction = _playerScriptManager.PlayerMovement.transform.position - transform.position;
         RaycastHit rayHit;
@@ -85,64 +87,72 @@ public class EnemyBehaviour : MonoBehaviour
                 _durationLeft = _followDuration;
                 _aiState = e_AI_State.FollowPlayer;
                 _Agent.speed = _enemyAttackSpeed;
-            }
-
-            if (_durationLeft <= 0f || _playerIsHiding)
+            }  
+        }
+        if (_durationLeft <= 0f || _playerIsHiding)
+        {
+            if (_runOnce)
             {
-                if (_runOnce)
-                {
-                    _Agent.ResetPath();
-                    _runOnce = false;
-                }
-                _aiState = e_AI_State.Patrol;
-                _Agent.speed = _enemyRoamSpeed;
-
+                _Agent.ResetPath();
+                MoveToRandomWaypoint();
+                _runOnce = false;
             }
+            _aiState = e_AI_State.Patrol;
+            _Agent.speed = _enemyRoamSpeed;
+
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (_playerScriptManager.Hide.GetStatus != _playerIsHiding)
+        if (_playerScriptManager)
         {
-            _playerIsHiding = _playerScriptManager.Hide.GetStatus;
-        }
-        float distanceToPlayer = Vector3.Distance(transform.position, _playerScriptManager.PlayerMovement.transform.position);
+            if (_playerScriptManager.Hide.GetStatus != _playerIsHiding)
+            {
+                _playerIsHiding = _playerScriptManager.Hide.GetStatus;
+            }
 
-        switch (_aiState)
-        {
-            case e_AI_State.FollowPlayer:
-                _Agent.SetDestination(_playerScriptManager.PlayerMovement.transform.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, _playerScriptManager.PlayerMovement.transform.position);
 
-                if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
-                {
-                    if (!_playerIsHiding)
+            switch (_aiState)
+            {
+                case e_AI_State.FollowPlayer:
+                    _Agent.SetDestination(_playerScriptManager.PlayerMovement.transform.position);
+                    if (_durationLeft > 0f)
                     {
-                        _attack = true;
+                        _durationLeft -= Time.deltaTime;
                     }
-                }
-                else
-                {
-                    _attack = false;
-                }
-
-                break;
-            case e_AI_State.Patrol:
-                if (_durationLeft < _followDuration)
-                {
-                    _durationLeft += Time.deltaTime;
-                }
-                //returns the distance of agent, if it is the same of stoping distance
-                if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
-                {
-                    if (!_Agent.hasPath || _Agent.velocity.sqrMagnitude == 0f)
+                    if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
                     {
-                        MoveToRandomWaypoint();
+                        if (!_playerIsHiding)
+                        {
+                            _attack = true;
+
+                        }
                     }
-                }
-                break;
-            default:
-                break;
+                    else
+                    {
+                        _attack = false;
+                    }
+
+                    break;
+                case e_AI_State.Patrol:
+                    if (_durationLeft < _followDuration)
+                    {
+                        _durationLeft += Time.deltaTime;
+                    }
+                    //returns the distance of agent, if it is the same of stoping distance
+                    if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
+                    {
+                        if (!_Agent.hasPath || _Agent.velocity.sqrMagnitude == 0f)
+                        {
+                            MoveToRandomWaypoint();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public void MoveToRandomWaypoint()

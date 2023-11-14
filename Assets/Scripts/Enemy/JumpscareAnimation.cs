@@ -14,6 +14,6 @@ public class JumpscareAnimation : MonoBehaviour
     }
     void Death()
     {   
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);    
+        SceneManager.LoadScene("GameScene");    
     }
 }

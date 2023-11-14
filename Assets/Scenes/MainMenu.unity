@@ -974,6 +974,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Paint Can (3) Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7647201610670262639, guid: 76c2a36f1ec982045901230822e7737a,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2332,6 +2337,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5850028399055501707, guid: 4b0ca8a75d7d08c47bd629744430a537,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8246781208536796672, guid: 4b0ca8a75d7d08c47bd629744430a537,
         type: 3}
       propertyPath: m_Name
@@ -2797,7 +2807,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b227a923814b2fb48bc250346669c222, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2afb09cdc367cfc44bfeb6906d61c1a4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.502
   m_Pitch: 1
@@ -5208,6 +5218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Paint Can (3) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647201610670262639, guid: 76c2a36f1ec982045901230822e7737a,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
