@@ -49,16 +49,16 @@ public class EnemyBehaviour : MonoBehaviour
     private Ray sight;
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         targets = _waypointManager.GetWayPoints();
         _playerIsHiding = _playerScriptManager.Hide.GetStatus;
-        
-   
+
+
         if (!_Agent)
         {
             _Agent = GetComponent<NavMeshAgent>();
         }
-        
+
         /*
         foreach (Transform tr in Waypoints.GetComponentInChildren<Transform>())
         {
@@ -96,7 +96,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 _aiState = e_AI_State.Patrol;
                 _Agent.speed = _enemyRoamSpeed;
-                
+
             }
         }
     }
@@ -115,11 +115,11 @@ public class EnemyBehaviour : MonoBehaviour
                 _Agent.SetDestination(_playerScriptManager.PlayerMovement.transform.position);
 
                 if (_Agent.remainingDistance <= _Agent.stoppingDistance && !_Agent.pathPending)
-                { 
-                     if (!_playerIsHiding)
-                     {
-                         _attack = true;
-                     }
+                {
+                    if (!_playerIsHiding)
+                    {
+                        _attack = true;
+                    }
                 }
                 else
                 {
@@ -127,7 +127,7 @@ public class EnemyBehaviour : MonoBehaviour
                 }
 
                 break;
-                case e_AI_State.Patrol:
+            case e_AI_State.Patrol:
                 if (_durationLeft < _followDuration)
                 {
                     _durationLeft += Time.deltaTime;
@@ -161,7 +161,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (newWaypointIndex != _wayPointNumber)
         {
             //we make this equal to random way point
-            
+
             _wayPointNumber = newWaypointIndex;
             //Setting the agent new destination
             _Agent.SetDestination(_targetPos[_wayPointNumber].position);
@@ -187,14 +187,18 @@ public class EnemyBehaviour : MonoBehaviour
 
     private float getFollowDistance()
     {
-        if (_playerScriptManager.PlayerMovement.GetCrouchStatus())
+        if (_playerScriptManager)
         {
-            return _crouchFollowRange;
+            if (_playerScriptManager.PlayerMovement.GetCrouchStatus())
+            {
+                return _crouchFollowRange;
+            }
+            else
+            {
+                return _playerFollowRange;
+            }
         }
-        else
-        {
-            return _playerFollowRange;
-        }
+        return _playerFollowRange;
     }
 }
 
