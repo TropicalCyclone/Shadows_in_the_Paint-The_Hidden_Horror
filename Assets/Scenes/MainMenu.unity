@@ -2309,7 +2309,13 @@ MonoBehaviour:
     Group Members:
 
     Kyle Derikk E.
-    Logdat'
+    Logdat
+
+    Melad, Leynard Eryn
+
+    Cruz, John Elisha
+
+    Abaca, Lee Ron'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52ee2ebc5eba4cc43841e922fdbe053d, type: 2}
   m_sharedMaterial: {fileID: 6227558170278353626, guid: 52ee2ebc5eba4cc43841e922fdbe053d,
@@ -2337,8 +2343,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.82
-  m_fontSizeBase: 50.82
+  m_fontSize: 59.14
+  m_fontSizeBase: 59.14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5776,7 +5782,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124802975}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
