@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class MainMenuAnimation : MonoBehaviour
 {
     [SerializeField] private Animator CameraAnimator;
     [SerializeField] private Animator MainMenuAnimator;
     [SerializeField] private CanvasGroup MainMenu;
+    [SerializeField] private PlayableDirector StartAnim;
     [SerializeField] private Animator OldManAnimator;
     [SerializeField] private CanvasGroup CreditsMenu;
     [SerializeField] private float Duration = 0.4f;
@@ -30,6 +32,10 @@ public class MainMenuAnimation : MonoBehaviour
         MainMenuAnimator.SetBool("IsSettings", false);
     }
 
+    public void StartButton()
+    {
+        StartAnim.Play();
+    }
     public void CreditsAppear()
     {
         StartCoroutine(Fade(CreditsMenu, 0, 1));
