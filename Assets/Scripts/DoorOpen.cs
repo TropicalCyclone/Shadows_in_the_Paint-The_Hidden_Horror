@@ -24,14 +24,17 @@ public class DoorOpen : MonoBehaviour
         {
             if (_unlockable)
             {
-                if (door)
-                {
-                    door.gameObject.SetActive(false);
-                }
+                
                 if (_item)
                 {
+                    if (door)
+                    {
+                        foreach (GameObject doors in _item.GetDoor)
+                        {
+                            Destroy(doors.gameObject);
+                        }
+                    }
                     _itemManager.RemoveItem(_item);
-                    Destroy(_item.gameObject);
                     _uiManager.SetGrabVisual(false);
                 }
             }
@@ -54,15 +57,18 @@ public class DoorOpen : MonoBehaviour
         }
         if (_item && door)
         {
-            if (door.gameObject == _item.GetDoor)
+            foreach (GameObject doors in _item.GetDoor)
             {
-                _uiManager.SetGrabVisual(true);
-                _uiManager.SetText("Open Door");
-                _unlockable = true;
-            }
-            else
-            {
-                _unlockable = false;
+                if (door.gameObject == doors)
+                {
+                    _uiManager.SetGrabVisual(true);
+                    _uiManager.SetText("Open Door");
+                    _unlockable = true;
+                }
+                else
+                {
+                    _unlockable = false;
+                }
             }
         }
         else
@@ -74,11 +80,14 @@ public class DoorOpen : MonoBehaviour
     {
         if (_item)
         {
-            if (other.gameObject == _item.GetDoor)
+            foreach (GameObject doors in _item.GetDoor)
             {
-          
-                _unlockable = false;
-                _uiManager.SetGrabVisual(false);
+                if (other.gameObject == doors)
+                {
+
+                    _unlockable = false;
+                    _uiManager.SetGrabVisual(false);
+                }
             }
         }
         else
