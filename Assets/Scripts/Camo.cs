@@ -47,7 +47,11 @@ public class Camo : MonoBehaviour
             //Debug.Log("Set Material");
         }
 
-
+        if (!baseItem)
+        {
+            SetPaint(_playerMat);
+            //Debug.Log("Return Material");
+        }
     }
 
         void SetPaint(Material material)

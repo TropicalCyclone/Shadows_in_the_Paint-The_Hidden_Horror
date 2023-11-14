@@ -2409,19 +2409,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Created for Game programming 3
-
-
-    Group Members:
-
-    Kyle Derikk E.
-    Logdat
-
-    Melad, Leynard Eryn
-
-    Cruz, John Elisha
-
-    Abaca, Lee Ron'
+  m_text: "Created for Game programming 3\n\nGroup Members:\nLogdat, Kyle Derikk
+    E. \nMelad, Leynard Eryn\nCruz, John Elisha\nAbaca, Lee Ron"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52ee2ebc5eba4cc43841e922fdbe053d, type: 2}
   m_sharedMaterial: {fileID: 6227558170278353626, guid: 52ee2ebc5eba4cc43841e922fdbe053d,
