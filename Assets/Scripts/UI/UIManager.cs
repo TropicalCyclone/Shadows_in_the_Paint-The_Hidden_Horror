@@ -65,12 +65,15 @@ public class UIManager : MonoBehaviour
 
     public void RestartButton()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
+        
     }
 
     public void ExitButton()
     {
-        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");  
     }
 
 }

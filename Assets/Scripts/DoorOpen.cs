@@ -35,6 +35,7 @@ public class DoorOpen : MonoBehaviour
                         }
                     }
                     _itemManager.RemoveItem(_item);
+                    Destroy(_item.gameObject);
                     _uiManager.SetGrabVisual(false);
                 }
             }

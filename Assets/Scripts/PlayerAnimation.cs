@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerGrab grab;
     [SerializeField] private PlayerMovement player;
+    [SerializeField] private AudioManager audioManager;
 
     private bool only_once;
     // Start is called before the first frame update
@@ -48,5 +49,10 @@ public class PlayerAnimation : MonoBehaviour
         {
             only_once=false;
         }
+    }
+
+    public void grabItem()
+    {
+        audioManager.grabSoundPlay();
     }
 }

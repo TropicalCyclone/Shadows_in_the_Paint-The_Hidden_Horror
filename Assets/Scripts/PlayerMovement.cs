@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _turnSmoothVel;
     private bool _isCrouching = false;
     private bool _isWalking;
+    private bool _hasWalked;
     private float _walkingSpeed;
     private Rigidbody rb;
 
+    [SerializeField] private UnityEvent WalkingEnter;
+    [SerializeField] private UnityEvent WalkingExit;
     public bool GetCrouchStatus()
     {
         return _isCrouching;
@@ -42,6 +46,23 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         _isWalking = direction.magnitude > 0.01f || direction.magnitude < -0.01f;
+
+        if (_isWalking)
+        {
+            if (!_hasWalked)
+            {
+                WalkingEnter.Invoke();
+                _hasWalked = true;
+            }
+        }
+        else
+        {
+            if (_hasWalked)
+            {
+                WalkingExit.Invoke();
+                _hasWalked = false;
+            }
+        }
 
         if(direction.magnitude >= 0.1f)
         {
