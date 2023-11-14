@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Enemy.unity
     guid: 197c5867b0137c4458759906fa456d62
   - enabled: 1
-    path: Assets/Scenes/New Folder/GameScene.unity
+    path: Assets/Scenes/GameScene.unity
     guid: 71716eac061a63e45948b3015671aa0c
   - enabled: 1
     path: Assets/Scenes/New Folder/Easy Level.unity
