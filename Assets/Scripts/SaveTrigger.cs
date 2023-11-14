@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SaveTrigger : MonoBehaviour
 {
-    [SerializeField] private SaveSystem _system = SaveSystem.Instance;
+    [SerializeField] private SaveSystem _system;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             _system.SavePlayerPosition();
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

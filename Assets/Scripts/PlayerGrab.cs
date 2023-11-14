@@ -73,6 +73,7 @@ public class PlayerGrab : MonoBehaviour
 
     public void UIUpdate()
     {
+
         currentBaseItem = PickCliosestObject();
         if (currentBaseItem != lastBaseItem)
         {
