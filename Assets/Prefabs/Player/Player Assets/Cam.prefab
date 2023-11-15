@@ -955,10 +955,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2666634431830194545}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1157659491556172329}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2309,11 +2309,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseMenuUI: {fileID: 2922663212428412836}
   _uiGroup: {fileID: 7140926322075635486}
+  _Tutorial: {fileID: 8140603072954151116}
   _text: {fileID: 369000316621904805}
   E_Sprite: {fileID: 21300000, guid: 5886c12ac71a1204aa254f9ab2761be1, type: 3}
   F_Sprite: {fileID: 21300000, guid: 0c5b24a19e1fe424788e09e58cdb6587, type: 3}
   GrabVisual: {fileID: 7392903993154789409}
-  Button: {fileID: 8140603072954151116}
 --- !u!1 &6433626273782354974
 GameObject:
   m_ObjectHideFlags: 0
