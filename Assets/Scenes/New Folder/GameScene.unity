@@ -1312,6 +1312,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &575502441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575502436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d19f14cd391ab43a4fecaa668abc0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &623214613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1858,9 +1870,10 @@ PrefabInstance:
     - target: {fileID: 2263791264439890517, guid: ddfec09f5295998478f75d9e64bff556,
         type: 3}
       propertyPath: m_text
-      value: "Credits\r\nThis game used free-to-use assets, links to the owners are
-        listed below:\r\n\r\nPlayer Model\r\n\r\n\"Janitor\" (https://skfb.ly/6Z9GD)
-        by V\xEDctu is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).\r\nEnemy
+      value: "Credits\r\n\nThis project is created for gmae programming 3\n\nThis
+        game used free-to-use assets, links to the owners are listed below:\r\n\r\nPlayer
+        Model\r\n\r\n\"Janitor\" (https://skfb.ly/6Z9GD) by V\xEDctu is licensed
+        under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).\r\nEnemy
         Model\r\n\r\n\"Low Poly Ghost Character\" (https://skfb.ly/o6IWv) by TheoClarke
         is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).\r\nEnvironment
         Assets\r\n\r\nhttps://kaylousberg.itch.io/furniture-bits\r\nBGM/SFX Assets\r\n\r\nAll
@@ -3186,6 +3199,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 575502440}
+    - targetCorrespondingSourceObject: {fileID: 2590115130559045103, guid: ddfec09f5295998478f75d9e64bff556,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 575502441}
     - targetCorrespondingSourceObject: {fileID: 5847886917786680431, guid: ddfec09f5295998478f75d9e64bff556,
         type: 3}
       insertIndex: -1
@@ -6752,6 +6769,73 @@ Transform:
   - {fileID: 1713415472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2080455193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080455196}
+  - component: {fileID: 2080455195}
+  - component: {fileID: 2080455194}
+  m_Layer: 8
+  m_Name: CreditsTriggeer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2080455194
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080455193}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.046379, y: 3.6219974, z: 0.37838745}
+  m_Center: {x: 0.82364273, y: 1.3109992, z: -0.31080627}
+--- !u!114 &2080455195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080455193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4de9706b2a75b44fa7e2fab4df26416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Credits: {fileID: 575502440}
+--- !u!4 &2080455196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080455193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -82.49, y: 0, z: 321.80002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2114271125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7540,6 +7624,7 @@ SceneRoots:
   - {fileID: 787110534}
   - {fileID: 951135485}
   - {fileID: 1910878304}
+  - {fileID: 2080455196}
   - {fileID: 332654245}
   - {fileID: 448558961}
   - {fileID: 2062014645}
