@@ -19,6 +19,8 @@ public class CreditsScene : MonoBehaviour
 
     public void BackToMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("MainMenu");
     }
 }
