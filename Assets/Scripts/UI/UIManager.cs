@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite E_Sprite;
     [SerializeField] private Sprite F_Sprite;
     [SerializeField] private Image GrabVisual;
-
+    [SerializeField] private GameObject GameOverUI;
+    private bool _hasDied;
     private bool _uiSwitch;
     // Start is called before the first frame update
     void OnEnable()
@@ -22,21 +23,33 @@ public class UIManager : MonoBehaviour
         SetPauseVisual(false);
     }
 
+    public void HasDied()
+    {
+        _hasDied = true;
+        Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        GameOverUI.SetActive(true);
+    }
+
     // Update is called once per frame
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.JoystickButton10) || Input.GetKeyDown(KeyCode.Escape))
+        if (!_hasDied)
         {
-            _uiSwitch = !_uiSwitch;
-            if (_uiSwitch)
+            if (Input.GetKeyDown(KeyCode.JoystickButton10) || Input.GetKeyDown(KeyCode.Escape))
             {
-                SetPauseVisual(true);
+                _uiSwitch = !_uiSwitch;
+                if (_uiSwitch)
+                {
+                    SetPauseVisual(true);
+                }
+                else
+                {
+                    SetPauseVisual(false);
+                }
+
             }
-            else
-            {
-                SetPauseVisual(false);
-            }
-            
         }
     }
 
